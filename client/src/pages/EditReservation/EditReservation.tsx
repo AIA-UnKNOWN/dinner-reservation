@@ -81,6 +81,12 @@ const EditReservation = () => {
             placeholder="Reservation Date"
             value={reservationDate || undefined}
             onChange={(e) => setReservationDate(e.target.value)}
+            min={(() => {
+              // Sets the min date to two (2) days from now
+              const minimumDate = new Date();
+              minimumDate.setDate(minimumDate.getDate() + 2);
+              return minimumDate.toISOString().split("T")[0];
+            })()}
             required
           />
           <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">

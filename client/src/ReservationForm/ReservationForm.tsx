@@ -65,6 +65,12 @@ const ReservationForm = () => {
           type="date"
           name="reservation_datetime"
           placeholder="Reservation Date"
+          min={(() => {
+            // Sets the min date to two (2) days from now
+            const minimumDate = new Date();
+            minimumDate.setDate(minimumDate.getDate() + 2);
+            return minimumDate.toISOString().split("T")[0];
+          })()}
           required
         />
         <button
