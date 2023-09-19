@@ -32,6 +32,7 @@ def create_reservation(reservation_payload):
             number_of_guests
         ) VALUES (?, ?, ?, ?);
     """
+    # Runs the query with arguments
     query_db(
         insert_reservation_query,
         (
@@ -41,5 +42,6 @@ def create_reservation(reservation_payload):
             reservation_payload['number_of_guests']
         )
     )
+    # Commits the inserted data
     get_db().commit()
     return 'reservation created'
