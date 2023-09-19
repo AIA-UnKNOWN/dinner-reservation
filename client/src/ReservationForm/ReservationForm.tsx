@@ -38,6 +38,13 @@ const ReservationForm = () => {
           placeholder="No. of Guests"
           required
         />
+        <input
+          className="border rounded-md p-2"
+          type="date"
+          name="reservation_datetime"
+          placeholder="Reservation Date"
+          required
+        />
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           disabled={isLoading}

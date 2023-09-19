@@ -16,6 +16,7 @@ def create_reservation(reservation_payload):
     # Checks the required fields
     if not validate_payload(
         [
+            'reservation_datetime',
             'reservation_first_name',
             'reservation_last_name',
             'phone_number',
@@ -26,16 +27,18 @@ def create_reservation(reservation_payload):
     # Creates an insert query for inserting reservation
     insert_reservation_query = """
         INSERT INTO reservations (
+            reservation_datetime,
             reservation_first_name,
             reservation_last_name,
             phone_number,
             number_of_guests
-        ) VALUES (?, ?, ?, ?);
+        ) VALUES (?, ?, ?, ?, ?);
     """
     # Runs the query with arguments
     query_db(
         insert_reservation_query,
         (
+            reservation_payload['reservation_datetime'],
             reservation_payload['reservation_first_name'],
             reservation_payload['reservation_last_name'],
             reservation_payload['phone_number'],
@@ -59,6 +62,8 @@ def update_reservation(reservation_id, reservation_payload):
         updated_values['phone_number'] = reservation_payload['phone_number']
     if 'number_of_guests' in reservation_payload:
         updated_values['number_of_guests'] = reservation_payload['number_of_guests']
+    if 'reservation_datetime' in reservation_payload:
+        updated_values['reservation_datetime'] = reservation_payload['reservation_datetime']
     # Build the SQL query dynamically based on the updated values
     update_reservation_query = "UPDATE reservations SET "
     update_reservation_query += ", ".join(f"{key} = ?" for key in updated_values)

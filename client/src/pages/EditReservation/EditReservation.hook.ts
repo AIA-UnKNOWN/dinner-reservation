@@ -12,6 +12,7 @@ const useEditReservation = (props: EditReservationHook) => {
   const [reservationLastName, setReservationLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(0);
   const [numberOfGuests, setNumberOfGuests] = useState(0);
+  const [reservationDate, setReservationDate] = useState(null);
 
   useEffect(() => {
     console.log(reservationId);
@@ -60,10 +61,13 @@ const useEditReservation = (props: EditReservationHook) => {
       );
       if (response.ok) {
         const reservation = await response.json();
+        const reservationDateTime =
+          reservation["reservation_datetime"].split("T")[0];
         setReservationFirstName(reservation["reservation_first_name"]);
         setReservationLastName(reservation["reservation_last_name"]);
         setPhoneNumber(reservation["phone_number"]);
         setNumberOfGuests(reservation["number_of_guests"]);
+        setReservationDate(reservationDateTime);
       }
     } catch (error) {
       console.log("GetReservationError", error);
@@ -82,6 +86,8 @@ const useEditReservation = (props: EditReservationHook) => {
     setPhoneNumber,
     numberOfGuests,
     setNumberOfGuests,
+    reservationDate,
+    setReservationDate,
   };
 };
 

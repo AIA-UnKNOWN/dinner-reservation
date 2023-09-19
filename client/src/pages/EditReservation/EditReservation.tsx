@@ -16,6 +16,8 @@ const EditReservation = () => {
     setPhoneNumber,
     numberOfGuests,
     setNumberOfGuests,
+    reservationDate,
+    setReservationDate,
   } = useEditReservation({
     reservationId,
   });
@@ -68,6 +70,15 @@ const EditReservation = () => {
             placeholder="No. of Guests"
             value={numberOfGuests || 0}
             onChange={(e) => setNumberOfGuests(parseInt(e.target.value))}
+            required
+          />
+          <input
+            className="border rounded-md p-2"
+            type="date"
+            name="reservation_datetime"
+            placeholder="Reservation Date"
+            value={reservationDate || undefined}
+            onChange={(e) => setReservationDate(e.target.value)}
             required
           />
           <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
