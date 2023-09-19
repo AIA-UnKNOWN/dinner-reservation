@@ -1,7 +1,9 @@
 import sqlite3
 from flask import Flask, g
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 DATABASE = 'dinner_reservation.db'
 
