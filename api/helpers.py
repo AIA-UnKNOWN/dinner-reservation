@@ -1,4 +1,5 @@
 from db import query_db, get_db
+from datetime import datetime, timedelta
 
 # Validator
 def validate_payload(required_fields=[], payload={}):
@@ -7,9 +8,16 @@ def validate_payload(required_fields=[], payload={}):
             return False
     return True
 
-# Gets all reservations
+# Gets reservations created 30 minutes ago or more
 def get_reservations():
-    return query_db('SELECT * FROM reservations')
+    # Calculate the timestamp 30 minutes ago
+    thirty_minutes_ago = datetime.now() - timedelta(minutes=30)
+    # Format the timestamp as a string in "YYYY-MM-DD HH:MM:SS" format
+    thirty_minutes_ago_str = thirty_minutes_ago.strftime("%Y-%m-%d %H:%M:%S")
+    # SQL query to retrieve reservations created 30 minutes ago or more
+    sql = 'SELECT * FROM reservations WHERE created_at <= ?'
+    # Execute the query with the timestamp as a parameter
+    return query_db(sql, [thirty_minutes_ago_str])
 
 # Creates a reservation
 def create_reservation(reservation_payload):
