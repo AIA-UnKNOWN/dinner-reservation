@@ -70,3 +70,7 @@ def update_reservation(reservation_id, reservation_payload):
     # Commits the updated data
     get_db().commit()
     return 'reservation updated'
+
+# Gets the reservation based on the id
+def get_reservation(id):
+    return query_db('SELECT * FROM reservations WHERE ID = ?', [id])

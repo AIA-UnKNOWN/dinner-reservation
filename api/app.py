@@ -10,6 +10,10 @@ def index():
 def get_reservations():
     return helpers.get_reservations()
 
+@app.get('/reservation/<int:id>')
+def get_reservation(id):
+    return helpers.get_reservation(id)
+
 @app.post('/reservation')
 def create_reservation():
     return helpers.create_reservation(request.form)
