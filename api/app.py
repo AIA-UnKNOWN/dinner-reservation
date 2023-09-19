@@ -1,3 +1,4 @@
+from flask import request
 from db import app
 import helpers
 
@@ -8,3 +9,8 @@ def index():
 @app.get('/reservations')
 def get_reservations():
     return helpers.get_reservations()
+
+@app.post('/reservation')
+def create_reservation():
+    # print(request.form)
+    return helpers.create_reservation(request.form)
