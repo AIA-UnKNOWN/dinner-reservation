@@ -1,7 +1,19 @@
 import useReservation from "./ReservationForm.hook";
 
 const ReservationForm = () => {
-  const { canCreate, isLoading, sumbitReservation } = useReservation();
+  const {
+    sumbitReservation,
+    isLoading,
+    canCreate,
+    isInAllowedTimeForReservationCreation,
+  } = useReservation();
+
+  if (!isInAllowedTimeForReservationCreation)
+    return (
+      <p className="text-3xl font-bold mb-4 text-center">
+        Sorry, we only accept reservations from 6pm to 9:30pm. Thank you.
+      </p>
+    );
 
   if (!canCreate)
     return (

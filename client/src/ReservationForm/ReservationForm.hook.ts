@@ -6,6 +6,10 @@ const useReservation = () => {
   const reservationStore = useReservationStore();
   const [isLoading, setIsLoading] = useState(false);
   const [canCreate, setCanCreate] = useState(false);
+  const [
+    isInAllowedTimeForReservationCreation,
+    setIsInAllowedTimeForReservationCreation,
+  ] = useState(false);
 
   useEffect(() => {
     checkIfCanCreateReservation();
@@ -22,6 +26,34 @@ const useReservation = () => {
       console.log("CheckIfCanCreateReservationError", error);
     }
     setCanCreate(canCreate);
+
+    const anteMeridiemHours = 12; // a.m.
+    const minPostMeridiemHourForReservation = 6; // 6 hour in PM
+    const maxPostMeridiemHourForReservation = 9; // 9 hour in PM
+
+    // Creates a date for 6pm
+    const minAllowedReservationCreationTime = new Date();
+    minAllowedReservationCreationTime.setHours(
+      anteMeridiemHours + minPostMeridiemHourForReservation
+    ); // Set to 6pm
+    minAllowedReservationCreationTime.setMinutes(0); // Set to 6:00pm
+    minAllowedReservationCreationTime.setSeconds(0); // Set to 6:00:00pm
+    // Creates a date for 9:30pm
+    const maxAllowedReservationCreationTime = new Date();
+    maxAllowedReservationCreationTime.setHours(
+      anteMeridiemHours + maxPostMeridiemHourForReservation
+    ); // Set to 9pm
+    maxAllowedReservationCreationTime.setMinutes(30); // Set to 9:30pm
+    maxAllowedReservationCreationTime.setSeconds(0); // Set to 9:30:00pm
+    // Checks if our current date and time is between the allowed to for
+    // creating reservation (6pm - 9:30pm)
+    const currentDateTime = new Date();
+    const isInAllowedTimeForReservationCreation =
+      minAllowedReservationCreationTime < currentDateTime &&
+      currentDateTime < maxAllowedReservationCreationTime;
+    setIsInAllowedTimeForReservationCreation(
+      isInAllowedTimeForReservationCreation
+    );
   };
 
   const sumbitReservation = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,6 +90,7 @@ const useReservation = () => {
     sumbitReservation,
     isLoading,
     canCreate,
+    isInAllowedTimeForReservationCreation,
   };
 };
 
