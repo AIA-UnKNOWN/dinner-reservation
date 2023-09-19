@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import useReservationStore from "../states/reservations.state";
 
 const useReservationList = () => {
-  const [reservations, setReservations] = useState([]);
+  const reservationStore = useReservationStore();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -11,18 +12,18 @@ const useReservationList = () => {
   const getReservations = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/reservations`);
-      if (response.ok) {
-        const reservations = await response.json();
-        setReservations(reservations);
-      }
+      await reservationStore.getAll();
     } catch (error) {
+      console.log("GetReservationsError", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { reservations, isLoading };
+  return {
+    reservations: reservationStore.data,
+    isLoading,
+  };
 };
 
 export default useReservationList;

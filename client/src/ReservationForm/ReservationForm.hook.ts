@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import useReservationStore from "../states/reservations.state";
 
 const useReservation = () => {
+  const reservationStore = useReservationStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const sumbitReservation = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +26,7 @@ const useReservation = () => {
           timer: 1500,
         });
         form.reset();
+        reservationStore.getAll();
       }
     } catch (error) {
       console.log("SumbitReservationError", error);
