@@ -10,6 +10,13 @@ def index():
 def get_reservations():
     return helpers.get_reservations()
 
+@app.get('/reservations/cancreate')
+def can_create_reservation():
+    reservations = helpers.get_recent_reservations()
+    print(len(reservations))
+    if (len(reservations) >= 3): return 'false'
+    return 'true'
+
 @app.get('/reservation/<int:id>')
 def get_reservation(id):
     return helpers.get_reservation(id)

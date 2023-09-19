@@ -1,7 +1,15 @@
 import useReservation from "./ReservationForm.hook";
 
 const ReservationForm = () => {
-  const { isLoading, sumbitReservation } = useReservation();
+  const { canCreate, isLoading, sumbitReservation } = useReservation();
+
+  if (!canCreate)
+    return (
+      <p className="text-3xl font-bold mb-4 text-center">
+        Sorry, three (3) reservations have already been created. Please try
+        again later. Thank you.
+      </p>
+    );
 
   return (
     <form
