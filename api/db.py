@@ -33,6 +33,6 @@ def query_db(query, args=(), one=False):
 def init_db():
     with app.app_context():
         db = get_db()
-        with app.open_resource('schema.sql', mode='r') as f:
+        with app.open_resource('dinner_reservation_schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
