@@ -36,6 +36,8 @@ const ReservationForm = () => {
           type="number"
           name="number_of_guests"
           placeholder="No. of Guests"
+          min={1}
+          max={5}
           required
         />
         <input

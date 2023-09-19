@@ -68,6 +68,8 @@ const EditReservation = () => {
             type="number"
             name="number_of_guests"
             placeholder="No. of Guests"
+            min={1}
+            max={5}
             value={numberOfGuests || 0}
             onChange={(e) => setNumberOfGuests(parseInt(e.target.value))}
             required
