@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useReservationStore from "../states/reservations.state";
+import Swal from "sweetalert2";
 
 const useReservationList = () => {
   const reservationStore = useReservationStore();
@@ -17,6 +18,39 @@ const useReservationList = () => {
       console.log("GetReservationsError", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const deleteReservation = async (reservationId: number) => {
+    if (!reservationId) return;
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+      if (result.isConfirmed) {
+        const response = await fetch(
+          `http://localhost:5000/reservation/${reservationId}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (response.ok) {
+          Swal.fire(
+            "Deleted!",
+            "Your reservation has been deleted.",
+            "success"
+          );
+          getReservations();
+        }
+      }
+    } catch (error) {
+      console.log("DeleteReservationError", error);
     }
   };
 
@@ -53,6 +87,7 @@ const useReservationList = () => {
   return {
     reservations: filterReservations(),
     isLoading,
+    deleteReservation,
   };
 };
 

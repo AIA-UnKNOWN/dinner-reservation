@@ -99,3 +99,9 @@ def get_recent_reservations():
     # Execute the query with the timestamp as a parameter
     under_thirty_minutes_ago_reservations = query_db(sql, [thirty_minutes_ago_str])
     return under_thirty_minutes_ago_reservations
+
+# Deletes a reservation based on ID
+def delete_reservation(id):
+    query_db('DELETE FROM reservations WHERE ID = ?', [id], one=True)
+    get_db().commit()
+    return 'reservation deleted'

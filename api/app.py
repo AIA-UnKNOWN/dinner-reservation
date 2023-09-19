@@ -28,3 +28,7 @@ def create_reservation():
 @app.put('/reservation/<int:id>')
 def update_reservation(id):
     return helpers.update_reservation(id, request.form)
+
+@app.delete('/reservation/<int:id>')
+def delete_reservation(id):
+    return helpers.delete_reservation(id)

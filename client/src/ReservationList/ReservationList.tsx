@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useReservationList from "./ReservationList.hook";
 
 const ReservationList = () => {
-  const { isLoading, reservations } = useReservationList();
+  const { isLoading, reservations, deleteReservation } = useReservationList();
 
   return (
     <div className="w-full h-full border-2 border-black p-4 rounded-md flex flex-col gap-4">
@@ -41,19 +41,35 @@ const ReservationList = () => {
                     </td>
                     <td className="px-4 py-2 text-center">
                       {reservation.canEdit ? (
-                        <Link
-                          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                          to={`/edit/${reservation.ID}`}
-                        >
-                          Edit
-                        </Link>
+                        <>
+                          <Link
+                            className="block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                            to={`/edit/${reservation.ID}`}
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            onClick={() => deleteReservation(reservation.ID)}
+                          >
+                            Delete
+                          </button>
+                        </>
                       ) : (
-                        <button
-                          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded opacity-20"
-                          disabled
-                        >
-                          Edit
-                        </button>
+                        <>
+                          <button
+                            className="block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded opacity-20"
+                            disabled
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded opacity-20"
+                            disabled
+                          >
+                            Delete
+                          </button>
+                        </>
                       )}
                     </td>
                   </tr>
