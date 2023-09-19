@@ -40,12 +40,21 @@ const ReservationList = () => {
                       {reservation["number_of_guests"]}
                     </td>
                     <td className="px-4 py-2 text-center">
-                      <Link
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                        to={`/edit/${reservation.ID}`}
-                      >
-                        Edit
-                      </Link>
+                      {reservation.canEdit ? (
+                        <Link
+                          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                          to={`/edit/${reservation.ID}`}
+                        >
+                          Edit
+                        </Link>
+                      ) : (
+                        <button
+                          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                          disabled
+                        >
+                          Edit
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );
