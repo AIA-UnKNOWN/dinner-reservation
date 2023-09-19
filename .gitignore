@@ -1,0 +1,3 @@
+api/__pycache__
+api/dinner_reservation.db
+api/.venv
